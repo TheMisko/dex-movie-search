@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from "react";
 
-const MovieCard = ({ searchedMovies }) => {
-  const [poster, setPoster] = useState("");
-
+const MovieCard = ({ poster, title, year }) => {
+  const [moviePoster, setMoviePoster] = useState("");
+  console.log(poster);
   useEffect(() => {
     checkForPoster();
-  }, [searchedMovies]);
+  }, [poster]);
   function checkForPoster() {
-    if (searchedMovies.Poster == "N/A") {
-      setPoster(
+    if (poster == "N/A") {
+      setMoviePoster(
         "https://www.icbtech.rs/wp-content/themes/seolounge/images/no-image/No-Image-Found-400x264.png"
       );
     } else {
-      setPoster(searchedMovies.Poster);
+      setMoviePoster(poster);
     }
   }
   return (
     <div className="movie-card-direction">
       <div
         style={{
-          backgroundImage: `url(${poster})`,
+          backgroundImage: `url(${moviePoster})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "cover",
-          backgroundSize: "16vw 100%",
+          backgroundSize: "13vw 100%",
         }}
         className="movie-card-container"
       ></div>
       <div className="movie-card-info">
         {" "}
-        <h3>{searchedMovies.Title}</h3>
+        <h3>{title}</h3>
         <div className="movie-card-details">
-          <span>{searchedMovies.Year}</span>
+          <span>{year}</span>
           <span>8.0</span>
         </div>
       </div>

@@ -10,10 +10,25 @@ body {
 
 .home-header-container {
   width: 100vw;
-  background-color: aqua;
-  height: 50vh;
+ 
+  max-height: 60vh;
+  
 }
 
+.header-btn:hover {
+  background-color: rgb(66, 66, 66,0.6);
+}
+
+.header-btn {
+  /* width: fit-content; */
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'PT Sans', sans-serif;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  background-color: rgb(199, 188, 174,0.7);
+}
 .nav-container {
   width: 100%;
   background-color: rgba(91, 92, 90, 0.4);
@@ -55,25 +70,37 @@ body {
   margin-right: 2vw;
  }
 
+ .header-title {
+   display: flex;
+   align-items: center;
+ }
+
+ .header-movie {
+   font-size: 45px;
+ }
+
 
 .header-movie-info {
   display: flex;
   flex-direction: column;
   width: 40vw;
+  max-height: 60vh;
+  padding-top: 2vh;
+  padding-bottom: 10vh;
   margin-left: 10vw;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
   color: antiquewhite;
   /* border-radius: 15px;
   background-color: rgb(199, 188, 174,0.1); */
 }
 
 .header-movie-info p {
-  font-size: 18px;
+  font-size: 22px;
 }
-.imdb-img img {
+/* .imdb-img img {
   width: 40px;
   height: 20px;
-}
+} */
 
 .imdb-img {
   width: 40px;
@@ -86,10 +113,11 @@ justify-content: center;
 
 
 .searched-movies-container {
-  /* width: 80vw; */
+  
   display: flex;
   flex-wrap: wrap;
   margin-top: 4vh;
+  max-width: 80vw;
   justify-content: center;
 
 }
@@ -100,7 +128,7 @@ justify-content: center;
 }
 
 #header-movie {
-  margin-right: 15px;
+  margin-left: 15px;
   font-size: 22px;
 }
 
@@ -108,7 +136,7 @@ justify-content: center;
   font-size: 38px;
 }
 .movie-card-container {
-  width: 16vw;
+  width: 13vw;
   border-radius: 13px;
   height: 35vh;
  
@@ -133,7 +161,7 @@ justify-content: center;
   color: antiquewhite;
   display: flex;
   flex-direction: column;
-  max-width: 16vw;
+  width: 13vw;
   margin-bottom: 2vh;
 }
 
@@ -189,10 +217,10 @@ justify-content: center;
 .quotes-container {
   color: aliceblue;
   /* background-color: aqua; */
-  margin-left: 10vw;
-  width: 100vw;
-  height: 50vh;
-  margin-top:10vh;
+  /* margin-left: 10vw; */
+  /* width: 100vw;
+  height: 50vh; */
+  /* margin-top:10vh; */
   display: flex;
   font-family: 'Poppins', sans-serif;
   line-height: 30pt;
@@ -217,8 +245,8 @@ justify-content: center;
   animation: load 7s normal forwards;
   box-shadow: 0 10px 40px -10px rgb(24, 22, 22);
   border-radius: 100px;
-  background: rgba(0, 0, 0,0.8 );
-  height: 5px;
+  background: rgba(27, 27, 94, 0.651);
+  height: 15px;
   width: 0;
 }
 
@@ -326,5 +354,102 @@ justify-content: center;
 
 .search-btn:hover {
 cursor: pointer;
-background-color: rgb(105, 108, 112)85);
+background-color: rgb(105, 108, 112)
+}
+
+.home-filter-container {
+  min-width: 71vw;
+  margin-right: 1vw;
+  border-radius: 5px;
+  background-color: rgb(67, 67, 70,0.1);
+  /* height: 8vh; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4vh;
+}
+
+.filter-center {
+display: flex;
+justify-content: center;
+}
+
+.filter-type {
+  align-items: center;
+  max-width: 80vw;
+  height: 4vh;
+  display: flex;
+  padding-bottom: 2vh;
+  border-bottom: 3px solid rgb(253, 253, 253,0.2);
+}
+.filter-series:hover {
+  cursor: pointer;
+  background-color: rgba(37, 28, 82, 0.5);
+}
+.filter-movies:hover {
+  cursor: pointer;
+  background-color: rgba(37, 28, 82, 0.5);
+}
+.filter-series {
+  margin-right: 7vw;
+  border-radius: 5px;
+  color: antiquewhite;
+  font-size: 23px;
+  padding: 5px 15px 5px 15px;
+  background-color: rgba(29, 18, 82, 0.5);
+}
+.filter-movies {
+  margin-right: 7vw;
+  border-radius: 5px;
+  color: antiquewhite;
+  font-size: 23px;
+  padding: 5px 5px 5px 5px;
+  background-color: rgb(29, 18, 82, 0.5);
+}
+
+
+.type-btns {
+  margin-top: 3vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-select:hover {
+  cursor: pointer;
+  background-color: rgba(37, 28, 82, 0.5);
+}
+.filter-select {
+  border-radius: 5px;
+  color: antiquewhite;
+  font-size: 23px;
+  padding: 5px 5px 5px 5px;
+  background-color: rgba(29, 18, 82, 0.5);
+}
+.filter-sort-container{
+  max-width: 80vw;
+  
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+}
+
+.sort-btns {
+  display: flex;
+}
+
+.sort-btn {
+  margin-left: 2vw;
+}
+
+.home-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 80vw;
+ 
+}
+
+.home-filter {
+  margin-bottom: 4vh;
+  max-width: 80vw;
 }

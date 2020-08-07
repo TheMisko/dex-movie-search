@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const HomeInput = ({ setSearchData, page, setPage, searchData }) => {
   const apiKey = "26036bee";
-  const key = "a3a762f0bd65bbbe87534c5c4acc9a3f";
+  const TMDBkey = "a3a762f0bd65bbbe87534c5c4acc9a3f";
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState({
     movieTitle: "",
@@ -13,11 +13,15 @@ const HomeInput = ({ setSearchData, page, setPage, searchData }) => {
   useEffect(() => {
     getData();
   }, []);
+  //api.themoviedb.org/3/movie/550?api_key=a3a762f0bd65bbbe87534c5c4acc9a3f
   //   useEffect(() => {
   //     getData();
   //   }, setPage);
+  // ("http://www.omdbapi.com/?i=tt3896198&apikey=26036bee");
 
-  console.log(typeof page);
+  // `https://api.themoviedb.org/3/search/movie?api_key=a3a762f0bd65bbbe87534c5c4acc9a3f&language=en-US&query=${inputValue.movieTitle}&page=${page}&include_adult=false`
+  // `https://api.themoviedb.org/3/search/${inputValue.movieTitle}&apikey=26036bee&language=en-US&page=${page}&include_adult=false`
+  https: console.log(typeof page);
   console.log("DATA", data);
   console.log("SEACRH", searchData);
 

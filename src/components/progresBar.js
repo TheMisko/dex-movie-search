@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const ProgresBar = () => {
+const ProgresBar = ({ setHeaderMovie, movieList }) => {
   const [showBar, setShowBar] = useState(true);
 
-  const [quote, setQuote] = useState("");
-
+  const rand = () => {
+    setHeaderMovie(movieList[Math.floor(Math.random() * movieList.length)]);
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       setShowBar(!showBar);
-
-      console.log("NOVI FILM");
+      rand();
     }, 7000);
     return () => clearInterval(interval);
   }, [showBar]);

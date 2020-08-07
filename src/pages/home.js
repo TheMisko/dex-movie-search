@@ -4,6 +4,8 @@ import HomeHeader from "../components/homeHeader";
 import MovieCard from "../components/movieCard";
 import HomeInput from "../components/HomeInput";
 import Pagination from "../components/pagination";
+import HomeList from "../components/homeList";
+import HomeFilter from "../components/homeFilter";
 
 const Home = () => {
   const movieList = [
@@ -40,10 +42,18 @@ const Home = () => {
   ];
   const [searchData, setSearchData] = useState([]);
   const [page, setPage] = useState(1);
+  const [api, setApi] = useState(
+    "https://api.themoviedb.org/3/movie/popular?api_key=a3a762f0bd65bbbe87534c5c4acc9a3f&language=en-US&page=1"
+  );
   console.log(searchData);
   console.log(page);
+
+  const changeFilter = (api) => {
+    setApi(api);
+    console.log(api);
+  };
   return (
-    <dvi>
+    <div>
       <HomeHeader />
       <div className="home-center">
         {" "}
@@ -62,14 +72,18 @@ const Home = () => {
                     style={{ textDecoration: "none" }}
                   >
                     {" "}
-                    <MovieCard searchedMovies={searchedMovies} />
+                    <MovieCard
+                      title={searchedMovies.Title}
+                      year={searchedMovies.Year}
+                      poster={searchedMovies.Poster}
+                    />
                   </Link>
                 ))
               : null}
           </div>
           {/* {searchData ? <Pagination setPage={setPage} /> : null} */}
           <div className="block2"></div>
-          <div className="details-recomendation-home">
+          {/* <div className="details-recomendation-home">
             <h2>Nasa preporuka:</h2>
           </div>
 
@@ -79,16 +93,28 @@ const Home = () => {
                 to={`/film/${movie.Title}`}
                 style={{ textDecoration: "none" }}
               >
-                {" "}
-                <MovieCard searchedMovies={movie} />
+                <div>
+                  <MovieCard
+                    title={movie.Title}
+                    year={movie.Year}
+                    poster={movie.Poster}
+                  />
+                </div>
               </Link>
             ))}
-          </div>
+          </div> */}
+          {/* <div className="home-filter">
+            {" "} */}
+          <HomeFilter changeFilter={changeFilter} />
+          {/* </div> */}
+
+          <HomeList page={page} api={api} />
+          <Pagination setPage={setPage} />
         </div>
       </div>
 
       <div className="block"></div>
-    </dvi>
+    </div>
   );
 };
 
