@@ -1,20 +1,20 @@
 import React from "react";
 
-const Pagination = ({ setPage, page, totalResults }) => {
+const Pagination = ({ actorPage, setActorPage, totalResults }) => {
   console.log("TOTAL RESULTS", totalResults);
   const nextPage = () => {
-    if (page > totalResults / 10) {
-      setPage(page);
+    if (actorPage > totalResults / 10) {
+      setActorPage(actorPage);
     } else {
-      setPage(page + 1);
+      setActorPage(actorPage + 1);
     }
   };
 
   const previousPage = () => {
-    if (page <= 1) {
-      setPage(1);
+    if (actorPage <= 1) {
+      setActorPage(1);
     } else {
-      setPage(page - 1);
+      setActorPage(actorPage - 1);
     }
   };
   return (

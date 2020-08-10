@@ -1,57 +1,80 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import { Link } from "react-router-dom";
+
 import HomeHeader from "../components/homeHeader";
 import MovieCard from "../components/movieCard";
 import HomeInput from "../components/HomeInput";
 import Pagination from "../components/pagination";
 import HomeList from "../components/homeList";
 import HomeFilter from "../components/homeFilter";
+import ActorCard from "../components/actorCard";
+import Footer from "../components/footer";
+import PaginationActor from "../components/paginationActor";
 
+import ListPagePagination from "../components/listPagePagination";
+AOS.init();
 const Home = () => {
-  const movieList = [
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SY1000_CR0,0,675,1000_AL_.jpg",
-      Title: "Inception ",
-      Year: "2010",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SY1000_SX675_AL_.jpg",
-      Title: "Interstellar",
-      Year: "2014",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY1000_CR0,0,665,1000_AL_.jpg",
-      Title: "The Matrix ",
-      Year: "1999",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SY999_CR0,0,673,999_AL_.jpg",
-      Title: "The Lord of the Rings: The Fellowship of the Ring",
-      Year: "2001",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,666,1000_AL_.jpg",
-      Title: "Fight Club",
-      Year: "1999",
-    },
-  ];
+  const [searchedActor, setSearchedActor] = useState([]);
+  const [sortedArr, setSortedArr] = useState([]);
+  const [totalResults, setTotalResults] = useState("");
+  const [sortedArrAsc, setSortedArrAsc] = useState([]);
+  const [sortedArrTitle, setSortedArrTitle] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [page, setPage] = useState(1);
+  const [listPage, setListPage] = useState(1);
+  const [documentaryPage, setDocumentaryPage] = useState(1);
+  const [actorPage, setActorPage] = useState(1);
+  const [searchedGenre, setSearchedGenre] = useState("");
+  const [genreMovies, setGenreMovies] = useState();
   const [api, setApi] = useState(
     "https://api.themoviedb.org/3/movie/popular?api_key=a3a762f0bd65bbbe87534c5c4acc9a3f&language=en-US&page=1"
   );
-  console.log(searchData);
-  console.log(page);
 
   const changeFilter = (api) => {
     setApi(api);
-    console.log(api);
   };
+
+  const sortByYear = () => {
+    searchData.sort(function (a, b) {
+      return a.Year - b.Year;
+    });
+    setSortedArr(searchData);
+    setSortedArr([]);
+    console.log("ARRAY", sortedArr);
+  };
+
+  const sortByYearAsc = () => {
+    searchData.sort(function (a, b) {
+      if (a.Year > b.Year) {
+        return -1;
+      } else if (b.Year > a.Year) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    setSortedArrAsc(searchData);
+    setSortedArrAsc([]);
+    console.log("ARRAY", sortedArr);
+  };
+  const sortByTitle = () => {
+    searchData.sort(function (a, b) {
+      if (a.Title < b.Title) {
+        return -1;
+      }
+      if (a.Title > b.Title) {
+        return 1;
+      }
+      return 0;
+    });
+    setSortedArrTitle(searchData);
+    setSortedArrTitle([]);
+    console.log("ARRAY", sortedArrTitle);
+  };
+
   return (
     <div>
       <HomeHeader />
@@ -59,61 +82,139 @@ const Home = () => {
         {" "}
         <div className="home-direction">
           <HomeInput
+            documentaryPage={documentaryPage}
+            setSearchedActor={setSearchedActor}
             page={page}
+            actorPage={actorPage}
             searchData={searchData}
             setSearchData={setSearchData}
             setPage={setPage}
-          />
+            searchedActor={searchedActor}
+            setGenreMovies={setGenreMovies}
+            setTotalResults={setTotalResults}
+            setSearchedGenre={setSearchedGenre}
+          />{" "}
+          {searchData ? (
+            <div className="home-sort-container">
+              <span id="sortiraj">
+                <h3>Sortiraj po:</h3>{" "}
+              </span>
+              <div
+                className="filter-select-search"
+                onClick={() => sortByYear()}
+              >
+                Godini Rastuce
+              </div>
+              <div
+                className="filter-select-search"
+                onClick={() => sortByYearAsc()}
+              >
+                Godini Opadajuce
+              </div>
+              <div
+                className="filter-select-search"
+                onClick={() => sortByTitle()}
+              >
+                Nazivu
+              </div>
+            </div>
+          ) : null}
+          {searchData ? (
+            <div className="home-pronadjeni">
+              <h3>Pronadjeni filmovi:</h3>
+            </div>
+          ) : null}
           <div className="searched-movies-container">
             {searchData
               ? searchData.map((searchedMovies) => (
-                  <Link
-                    to={`/film/${searchedMovies.Title}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    {" "}
-                    <MovieCard
-                      title={searchedMovies.Title}
-                      year={searchedMovies.Year}
-                      poster={searchedMovies.Poster}
-                    />
-                  </Link>
+                  <div data-aos="zoom-in">
+                    <Link
+                      to={`/film/${searchedMovies.Title}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      {" "}
+                      <MovieCard
+                        title={searchedMovies.Title}
+                        year={searchedMovies.Year}
+                        poster={searchedMovies.Poster}
+                      />
+                    </Link>
+                  </div>
                 ))
               : null}
           </div>
-          {/* {searchData ? <Pagination setPage={setPage} /> : null} */}
-          <div className="block2"></div>
-          {/* <div className="details-recomendation-home">
-            <h2>Nasa preporuka:</h2>
+          {searchData ? (
+            <Pagination
+              totalResults={totalResults}
+              setPage={setPage}
+              page={page}
+            />
+          ) : null}
+          {searchedActor ? (
+            <div className="home-pronadjeni">
+              <h3>Pronadjeni glumci:</h3>
+            </div>
+          ) : null}
+          <div className="searched-movies-container">
+            {searchedActor
+              ? searchedActor.map((actor) => (
+                  <div data-aos="zoom-in">
+                    <Link
+                      to={`/actorDetails/${actor.id}`}
+                      style={{ textDecoration: "none", color: "white" }}
+                    >
+                      {" "}
+                      <ActorCard
+                        actor={searchedActor}
+                        name={actor.name}
+                        id={actor.id}
+                        profile={actor.profile_path}
+                      />
+                    </Link>
+                  </div>
+                ))
+              : null}
           </div>
-
-          <div className="movie-list-container">
-            {movieList.map((movie) => (
-              <Link
-                to={`/film/${movie.Title}`}
-                style={{ textDecoration: "none" }}
-              >
-                <div>
-                  <MovieCard
-                    title={movie.Title}
-                    year={movie.Year}
-                    poster={movie.Poster}
-                  />
-                </div>
-              </Link>
-            ))}
-          </div> */}
-          {/* <div className="home-filter">
-            {" "} */}
+          {searchedActor ? (
+            <PaginationActor
+              totalResults={totalResults}
+              setActorPage={setActorPage}
+              actorPage={actorPage}
+            />
+          ) : null}
+          {genreMovies ? (
+            <div className="home-pronadjeni">
+              <h3>Zanr {searchedGenre}:</h3>
+            </div>
+          ) : null}
+          <div className="searched-movies-container">
+            {genreMovies
+              ? genreMovies.map((genre) => (
+                  <div data-aos="zoom-in">
+                    <Link
+                      to={`/film/${genre.title}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      {" "}
+                      <MovieCard
+                        title={genre.title}
+                        year={genre.release_date}
+                        poster={`https://image.tmdb.org/t/p/w500${genre.poster_path}`}
+                      />
+                    </Link>
+                  </div>
+                ))
+              : null}
+          </div>
+          <div className="block2"></div>
           <HomeFilter changeFilter={changeFilter} />
-          {/* </div> */}
-
-          <HomeList page={page} api={api} />
-          <Pagination setPage={setPage} />
+          <HomeList listPage={listPage} api={api} />
+          <ListPagePagination setListPage={setListPage} listPage={listPage} />
         </div>
       </div>
 
       <div className="block"></div>
+      <Footer />
     </div>
   );
 };

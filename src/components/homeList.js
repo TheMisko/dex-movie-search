@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import MovieCard from "../components/movieCard";
 import { Link } from "react-router-dom";
 
-const HomeList = ({ api, page }) => {
+const HomeList = ({ api, listPage }) => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     getData();
-  }, [api, page]);
+  }, [api, listPage]);
 
   console.log(api);
-  let sort = page;
-  let test = `${api}&page=${page}`;
+
+  let test = `${api}&page=${listPage}`;
 
   const getData = async () => {
     try {

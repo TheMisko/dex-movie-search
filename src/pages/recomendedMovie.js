@@ -2,49 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import MovieCard from "../components/movieCard";
-import HomeInput from "../components/HomeInput";
-import Nav from "../components/nav";
 import Footer from "../components/footer";
+import Nav from "../components/nav";
 
-const MovieDetails = ({ match }) => {
+const RecomendedMovie = ({ match }) => {
   const [refresh, setRefresh] = useState(false);
   const [movieId, setMovieId] = useState("");
   const [recomendations, setRecomendations] = useState([]);
   const refreshPage = () => {
     setRefresh(!refresh);
   };
-  const movieList = [
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SY1000_CR0,0,675,1000_AL_.jpg",
-      Title: "Inception ",
-      Year: "2010",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SY1000_SX675_AL_.jpg",
-      Title: "Interstellar",
-      Year: "2014",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY1000_CR0,0,665,1000_AL_.jpg",
-      Title: "The Matrix ",
-      Year: "1999",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SY999_CR0,0,673,999_AL_.jpg",
-      Title: "The Lord of the Rings: The Fellowship of the Ring",
-      Year: "2001",
-    },
-    {
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,666,1000_AL_.jpg",
-      Title: "Fight Club",
-      Year: "1999",
-    },
-  ];
+
   const key = "26036bee";
   const [data, setData] = useState({});
   useEffect(() => {
@@ -103,9 +71,7 @@ const MovieDetails = ({ match }) => {
       <div className="movie-details-center">
         <div className="movie-details-container">
           <div>
-            <div data-aos="zoom-in">
-              <img src={data.Poster} />
-            </div>
+            <img src={data.Poster} />
           </div>
           <div className="center-info">
             <div>
@@ -124,7 +90,7 @@ const MovieDetails = ({ match }) => {
                 <h4>{data.imdbVotes} Glasova</h4>
               </div>
               <p>{data.Plot}</p>
-              <div className="awards-movie">{data.Awards}</div>
+              <div>{data.Awards}</div>
             </div>
 
             <div className="ratings">
@@ -143,31 +109,31 @@ const MovieDetails = ({ match }) => {
           </div>
           <div className="right-info">
             <div className="right-info-item">
-              <span className="right-span">Reziser:</span> {data.Director}
+              <span>Direktor:</span> {data.Director}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Pisac:</span> {data.Writer}
+              <span>Pisac:</span> {data.Writer}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Glumci:</span> {data.Actors}
+              <span>Glumci:</span> {data.Actors}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Zanrovi:</span> {data.Genre}
+              <span>Zanrovi:</span> {data.Genre}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Datum izlaska:</span> {data.Released}
+              <span>Datum izlaska:</span> {data.Released}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Vreme trajanja:</span> {data.Runtime}
+              <span>Vreme trajanja:</span> {data.Runtime}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Jezik:</span> {data.Language}
+              <span>Jezik:</span> {data.Language}
             </div>
             <div className="right-info-item">
-              <span className="right-span">Produkcija:</span> {data.Production}
+              <span>Produkcija:</span> {data.Production}
             </div>
             <div className="right-info-item">
-              <span className="right-span">MMPA Ocena:</span> {data.Rated}
+              <span>MMPA Ocena:</span> {data.Rated}
             </div>
           </div>
         </div>
@@ -183,7 +149,7 @@ const MovieDetails = ({ match }) => {
             <div>
               <Link
                 onClick={() => refreshPage()}
-                to={`/films/${recomendedMovie.title}`}
+                to={`/film/${recomendedMovie.title}`}
                 style={{ textDecoration: "none" }}
               >
                 {" "}
@@ -204,10 +170,9 @@ const MovieDetails = ({ match }) => {
         </div>
       )}
       <div className="block"></div>
-
       <Footer />
     </div>
   );
 };
 
-export default MovieDetails;
+export default RecomendedMovie;

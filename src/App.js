@@ -4,6 +4,8 @@ import "./App.css";
 
 import Home from "./pages/home";
 import MovieDetails from "./pages/movieDetails";
+import RecomnedMovie from "./pages/recomendedMovie";
+import ActorDetails from "./pages/actorDetails";
 
 function App() {
   const search = "Rambo";
@@ -11,10 +13,12 @@ function App() {
   return (
     <div className="App">
       <div>
-        <HashRouter>
+        <HashRouter primary={false}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/film/:naziv" component={MovieDetails} />
+            <Route exact path="/films/:naziv" component={RecomnedMovie} />
+            <Route exact path="/actorDetails/:id" component={ActorDetails} />
           </Switch>
         </HashRouter>
       </div>
